@@ -1,0 +1,96 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connectly | Home</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="{% static 'js/script.js' %}" defer></script>
+</head>
+<body>
+<nav class="navbar">
+    <a href="/" class="logo">Connectly.</a>
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="{% url 'explore' %}">Explore</a>
+        <a href="{% url 'profile' request.user.username %}">Profile</a>
+        <a href="{% url 'notifications' %}">Notifications</a>
+        <form method="POST" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button class="logout-btn">Logout</button>
+        </form>
+    </div>
+</nav>
+
+<main class="main-container">
+    <section class="feed">
+        <h2>Your Feed</h2>
+
+        <form id="post-form" class="create-post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <textarea name="content" placeholder="What's happening in your world?"></textarea>
+            <div class="post-actions">
+                <label class="upload-label">
+                    <input type="file" name="image" accept="image/jpeg,image/png,image/webp">
+                    <span>📷 Add photo</span>
+                </label>
+                <button class="primary-btn" type="submit">Publish</button>
+            </div>
+            <p id="post-message"></p>
+        </form>
+
+        <div id="posts-container">
+        {% for post in posts %}
+            <article class="post-card" id="post-{{ post.id }}">
+                <div class="post-header">
+                    <div class="avatar">{{ post.user.username|first|upper }}</div>
+                    <div>
+                        <strong><a href="{% url 'profile' post.user.username %}">@{{ post.user.username }}</a></strong>
+                        <small>{{ post.created_at|date:"M d, Y · h:i A" }}</small>
+                    </div>
+                    {% if post.user == request.user %}
+                    <button class="delete-btn" data-url="{% url 'delete_post' post.id %}">Delete</button>
+                    {% endif %}
+                </div>
+
+                {% if post.content %}<p class="post-content">{{ post.content }}</p>{% endif %}
+                {% if post.image %}
+                    <img class="post-image" src="{{ post.image.url }}" alt="Post image">
+                {% endif %}
+
+                <div class="post-actions">
+                    <button class="like-btn" data-url="{% url 'like_post' post.id %}">
+                        ♥ <span class="like-count">{{ post.like_set.count }}</span>
+                    </button>
+                    <span>💬 {{ post.comment_set.count }} comments</span>
+                </div>
+
+                <div class="comments">
+                    {% for comment in post.comment_set.all %}
+                    <div class="comment">
+                        <strong>@{{ comment.user.username }}</strong>
+                        {{ comment.text }}
+                        {% if comment.user == request.user %}
+                        <button class="comment-delete" data-url="{% url 'delete_comment' comment.id %}">×</button>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <form class="comment-form" data-url="{% url 'comment_post' post.id %}">
+                    {% csrf_token %}
+                    <input name="text" placeholder="Write a comment..." required>
+                    <button type="submit">Send</button>
+                </form>
+            </article>
+        {% empty %}
+            <div class="empty-state">No posts yet. Be the first to share something!</div>
+        {% endfor %}
+        </div>
+    </section>
+</main>
+</body>
+</html>
+

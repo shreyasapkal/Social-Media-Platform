@@ -1,0 +1,287 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f6fc;
+    color: #24243b;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.logo {
+    color: #6955d9;
+    font-size: 27px;
+    font-weight: 800;
+}
+
+.auth-page {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 20px;
+    background: linear-gradient(135deg, #6955d9, #4387ed);
+}
+
+.auth-card {
+    background: white;
+    padding: 40px;
+    width: 100%;
+    max-width: 420px;
+    border-radius: 20px;
+    box-shadow: 0 15px 50px #25205b30;
+}
+
+.auth-card > p {
+    color: #777;
+    margin: 12px 0 25px;
+}
+
+.auth-card form {
+    display: grid;
+    gap: 15px;
+}
+
+.auth-card input,
+.comment-form input,
+.create-post textarea {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #e2e2ed;
+    border-radius: 10px;
+    font: inherit;
+    outline: none;
+}
+
+.auth-card input:focus,
+.comment-form input:focus,
+.create-post textarea:focus {
+    border-color: #6955d9;
+}
+
+.primary-btn {
+    border: none;
+    border-radius: 10px;
+    padding: 13px 20px;
+    background: linear-gradient(100deg, #6955d9, #4387ed);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.primary-btn:hover {
+    opacity: .88;
+    transform: translateY(-1px);
+}
+
+.auth-switch {
+    text-align: center;
+    margin-top: 25px !important;
+}
+
+.auth-switch a {
+    color: #6955d9;
+    font-weight: bold;
+}
+
+.error {
+    padding: 12px;
+    margin-bottom: 15px;
+    color: #b42318;
+    background: #fee4e2;
+    border-radius: 8px;
+}
+
+.navbar {
+    background: white;
+    padding: 17px 7%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 12px #00000008;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    font-size: 14px;
+}
+
+.nav-links a:hover {
+    color: #6955d9;
+}
+
+.nav-links form {
+    display: inline;
+}
+
+.logout-btn,
+.delete-btn,
+.comment-delete {
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: #d04455;
+}
+
+.main-container {
+    max-width: 760px;
+    margin: 35px auto;
+    padding: 0 18px;
+}
+
+.feed h2 {
+    margin-bottom: 20px;
+}
+
+.create-post,
+.post-card,
+.empty-state {
+    background: white;
+    padding: 22px;
+    border-radius: 16px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 20px #20205009;
+}
+
+.create-post textarea {
+    min-height: 95px;
+    resize: vertical;
+    border: none;
+    background: #f7f7fb;
+}
+
+.post-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+.upload-label {
+    color: #6955d9;
+    cursor: pointer;
+}
+
+.upload-label input {
+    display: none;
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.post-header small {
+    display: block;
+    color: #888;
+    margin-top: 5px;
+}
+
+.post-header .delete-btn {
+    margin-left: auto;
+}
+
+.avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #e8e3ff;
+    color: #6955d9;
+    display: grid;
+    place-items: center;
+    font-weight: bold;
+}
+
+.post-content {
+    line-height: 1.7;
+    margin: 20px 0;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.post-image {
+    width: 100%;
+    max-height: 450px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-top: 15px;
+}
+
+.like-btn {
+    color: #d04475;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.comments {
+    border-top: 1px solid #eee;
+    margin-top: 18px;
+    padding-top: 12px;
+}
+
+.comment {
+    padding: 8px 0;
+    font-size: 14px;
+    overflow-wrap: anywhere;
+}
+
+.comment-delete {
+    margin-left: 8px;
+}
+
+.comment-form {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.comment-form button {
+    border: none;
+    color: #6955d9;
+    background: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.empty-state {
+    text-align: center;
+    color: #888;
+}
+
+@media (max-width: 600px) {
+    .navbar {
+        padding: 15px;
+        align-items: flex-start;
+        gap: 14px;
+        flex-direction: column;
+    }
+
+    .nav-links {
+        width: 100%;
+        flex-wrap: wrap;
+        gap: 14px;
+    }
+
+    .auth-card {
+        padding: 25px;
+    }
+
+    .create-post,
+    .post-card {
+        padding: 16px;
+    }
+}

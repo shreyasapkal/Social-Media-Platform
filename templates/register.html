@@ -1,0 +1,32 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Connectly</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body class="auth-page">
+    <div class="auth-card">
+        <h1 class="logo">Connectly.</h1>
+        <p>Join your community and start connecting.</p>
+
+        {% if error %}
+            <div class="error">{{ error }}</div>
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+            <input name="username" placeholder="Username" required>
+            <input name="email" type="email" placeholder="Email address" required>
+            <input name="password" type="password" placeholder="Password" required>
+            <input name="confirm_password" type="password" placeholder="Confirm password" required>
+            <button class="primary-btn" type="submit">Create Account</button>
+        </form>
+
+        <p class="auth-switch">Already a member? <a href="{% url 'login' %}">Log in</a></p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Notifications | Connectly</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<nav class="navbar">
+    <a class="logo" href="/">Connectly.</a>
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="{% url 'explore' %}">Explore</a>
+        <a href="{% url 'profile' request.user.username %}">Profile</a>
+    </div>
+</nav>
+<main class="main-container">
+    <h2>Notifications</h2>
+    {% for notification in notifications %}
+    <div class="post-card">
+        <strong>@{{ notification.sender.username }}</strong>
+        {% if notification.notification_type == 'like' %}
+            liked your post.
+        {% elif notification.notification_type == 'comment' %}
+            commented on your post.
+        {% else %}
+            started following you.
+        {% endif %}
+        <small>{{ notification.created_at|date:"M d, Y · h:i A" }}</small>
+        {% if not notification.is_read %}<span>New</span>{% endif %}
+    </div>
+    {% empty %}
+    <p>No notifications yet.</p>
+    {% endfor %}
+</main>
+</body>
+</html>

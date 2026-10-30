@@ -1,0 +1,35 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Explore | Connectly</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="{% static 'js/script.js' %}" defer></script>
+</head>
+<body>
+<nav class="navbar">
+    <a class="logo" href="/">Connectly.</a>
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="{% url 'profile' request.user.username %}">Profile</a>
+        <a href="{% url 'notifications' %}">Notifications</a>
+    </div>
+</nav>
+<main class="main-container">
+    <h2>Discover People</h2>
+    {% for person in users %}
+    <div class="post-card">
+        <strong>@{{ person.username }}</strong>
+        <a href="{% url 'profile' person.username %}">View Profile</a>
+        <button class="follow-btn primary-btn"
+                data-url="{% url 'follow_user' person.username %}">
+            Follow / Unfollow
+        </button>
+    </div>
+    {% empty %}
+    <p>No other users yet.</p>
+    {% endfor %}
+</main>
+</body>
+</html>

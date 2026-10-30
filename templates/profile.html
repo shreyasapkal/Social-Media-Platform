@@ -1,0 +1,40 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Profile | Connectly</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<nav class="navbar">
+    <a class="logo" href="/">Connectly.</a>
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="{% url 'explore' %}">Explore</a>
+        <a href="{% url 'notifications' %}">Notifications</a>
+    </div>
+</nav>
+<main class="main-container">
+    <section class="post-card">
+        <div class="avatar">{{ profile_user.username|first|upper }}</div>
+        <h2>@{{ profile_user.username }}</h2>
+        <p>{{ profile_user.profile.bio|default:"Welcome to my Connectly profile!" }}</p>
+        <p>{{ posts.count }} Posts · {{ profile_user.followers.count }} Followers · {{ profile_user.following.count }} Following</p>
+    </section>
+
+    <h2>Posts</h2>
+    {% for post in posts %}
+    <article class="post-card">
+        <strong>@{{ profile_user.username }}</strong>
+        <p class="post-content">{{ post.content }}</p>
+        {% if post.image %}
+        <img class="post-image" src="{{ post.image.url }}" alt="Post image">
+        {% endif %}
+    </article>
+    {% empty %}
+    <p>No posts yet.</p>
+    {% endfor %}
+</main>
+</body>
+</html>
